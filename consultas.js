@@ -14,7 +14,7 @@ const obtenerPosts = async () => {
 }
 
 const agregarPost = async(titulo, img, descripcion) => {
-    let likes = 0
+    let likes = 0;
     const query = await pool.query("INSERT INTO posts VALUES (DEFAULT, $1, $2, $3, $4) RETURNING id",
     [titulo, img, descripcion, likes]);
     const cardId = query.rows[0].id;
