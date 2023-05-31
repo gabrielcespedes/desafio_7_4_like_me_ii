@@ -13,24 +13,40 @@ app.use(cors());
 app.listen(3000, console.log("Servidor Encendido"));
 
 app.get("/posts", async (req, res) => {
-    const posts = await obtenerPosts();
-    res.json(posts);
+    try {
+        const posts = await obtenerPosts();
+        res.json(posts);
+    } catch(error) {
+        res.status(500).send(error);
+    }    
 })
 
 app.post("/posts", async (req, res) => {
-    const { titulo, img, descripcion } = req.body;
-    const result = await agregarPost(titulo, img, descripcion);
-    res.json(result);
+    try {
+        const { titulo, img, descripcion } = req.body;
+        const result = await agregarPost(titulo, img, descripcion);
+        res.json(result);
+    } catch(error) {
+        res.status(500).send(error);
+    }    
 })
 
 app.delete("/posts/:id", async (req, res) => {
-    const {id} = req.params;
-    await eliminarPost(id);
-    res.send("Post eliminado con éxito");
+    try {
+        const {id} = req.params;
+        await eliminarPost(id);
+        res.send("Post eliminado con éxito");
+    } catch(error) {
+        res.status(500).send(error);
+    }    
 })
 
 app.put('/posts/like/:id', async (req, res) => {
-    const { id } = req.params;
-    const result = await modificarPost(id);
-    res.json(result);
+    try {
+        const { id } = req.params;
+        const result = await modificarPost(id);
+        res.json(result);
+    } catch(error) {
+        res.status(500).send(error);
+    }    
 })
